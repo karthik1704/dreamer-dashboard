@@ -3,6 +3,7 @@ import "jsvectormap/dist/jsvectormap.css";
 import "flatpickr/dist/flatpickr.min.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
+import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export default function RootLayout({
   children,
@@ -19,10 +20,8 @@ export default function RootLayout({
   }, []);
 
   return (
- 
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">
-          {loading ? <Loader /> : children}
-        </div>
-     
+    <div className="dark:bg-boxdark-2 dark:text-bodydark">
+      <DefaultLayout>{loading ? <Loader /> : children}</DefaultLayout>
+    </div>
   );
 }
