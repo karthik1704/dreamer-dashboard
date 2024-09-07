@@ -1,14 +1,14 @@
 import { Metadata } from "next";
-import UserTable from "./user-table";
+import UserAddForm from "./user-add-form";
 
 export const metadata: Metadata = {
-  title: "User | Dreamer Academy",
+  title: "Add New User | Dreamer Academy",
   description: "Admin dashboard for dreamer academy",
 };
 
-export default function UserPage() {
+export default function NewUserPage() {
   return <div>
 
-    <UserTable/>
+   <UserAddForm />
   </div>;
 }
