@@ -10,14 +10,14 @@ const SelectGroupOne: React.FC = () => {
   };
 
   return (
-    <div className="mb-4.5">
+    <div className="">
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
         {" "}
-        Role{" "}
+        Role <span className="text-meta-1">*</span>{" "}
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -27,7 +27,7 @@ const SelectGroupOne: React.FC = () => {
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
+          <option value="" disabled className="text-black dark:text-bodydark">
             Select your Role
           </option>
           <option value="Admin" className="text-body dark:text-bodydark">

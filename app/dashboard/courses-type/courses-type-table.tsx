@@ -1,33 +1,37 @@
-type User={
-        First_Name: string;
-        Gender: string;
-        Qualification: string;
-    }
-const packageData: User[] = [
-    {
-      First_Name: "SRI ",
-      Gender: "FEMALE",
-      Qualification: `B TECH`,
-    }
+type Courses={
+  Subjects: string;
+  Subject_Code: string;
+  Junior_Champion: string;
+  Offline_Online: string;
+}
+const packageData: Courses[] = [
+{
+  Subjects: "SRI LAKSHMI SURITHI",
+  Subject_Code: "JUNIOR-LAKSHMI SURIT6th",
+  Junior_Champion: `FATHLAKSHMI SURITERNAME`,
+  Offline_Online: "9LAKSHMI SURIT39",
+}
 ];
 
 
-const UserTable = () => {
-    return (
-      <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <div className="max-w-full overflow-x-auto">
-          <table className="w-full table-auto">
-          <thead>
+const CoursesType = () => {
+return (
+  <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="max-w-full overflow-x-auto">
+      <table className="w-full table-auto">
+        <thead>
           <tr className="bg-gray-2 text-left dark:bg-meta-4">
-          
-          <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-               FIRST NAME
+            <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+              SUBJECTS
             </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-               GENDER
+            <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+              SUBJECTS CODE
             </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-              QUALIFICATION
+            <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+              JUNIOR / CHAMPION
+            </th>
+            <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+              OFFLINE / ONLINE
             </th>
             <th className="px-4 py-4 font-medium text-black dark:text-white">
               ACTIONS
@@ -38,26 +42,32 @@ const UserTable = () => {
         <tbody>
           {packageData.map((packageItem, key) => (
             <tr key={key}>
-            <td className="border-b border-[#eee] px-12 py-5 dark:border-strokedark">
-                <p className="font-medium text-black  dark:text-white">
-                  {packageItem.First_Name}
+              <td className="border-b border-[#eee] px-4 py-5  pl-9 dark:border-strokedark xl:pl-11">
+                <h5 className="font-medium text-black pb-5 dark:text-white">
+                  {packageItem.Subjects}
+                </h5>
+              </td>
+
+              <td className="border-b border-[#eee] px-12 py-5 dark:border-strokedark">
+                <p className="font-medium text-black pb-5  dark:text-white">
+                  {packageItem.Subject_Code}
                 </p>
               </td>
 
               <td className="border-b border-[#eee] px-12 py-5 dark:border-strokedark">
-                <p className="font-medium text-black  dark:text-white">
-                  {packageItem.Gender}
+                <p className="font-medium text-black pb-5  dark:text-white">
+                  {packageItem.Junior_Champion}
                 </p>
               </td>
 
               <td className="border-b border-[#eee] px-12 py-5 dark:border-strokedark">
-                <p className="font-medium text-black dark:text-white">
-                  {packageItem.Qualification}
+                <p className="font-medium text-black pb-5  dark:text-white">
+                  {packageItem.Offline_Online}
                 </p>
               </td>
 
               <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                <div className="flex items-center space-x-3.5">
+                <div className="flex items-center mb-5 space-x-3.5">
                   <button className="hover:text-primary">
                     <svg
                       className="fill-current"
@@ -128,11 +138,11 @@ const UserTable = () => {
             </tr>
           ))}
         </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-  
-export default UserTable;
+      </table>
+    </div>
+  </div>
+);
+};
+
+export default CoursesType;
 

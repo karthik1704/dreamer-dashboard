@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectStatusStudents: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -10,34 +10,25 @@ const SelectGroupOne: React.FC = () => {
   };
 
   return (
-    <div className="mb-4.5">
-      <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-        {" "}
-        Role{" "}
-      </label>
+    <div className="">
+      
 
-      <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+      <div className="relative mt-2 z-20 bg-transparent dark:bg-form-input">
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
             changeTextColor();
           }}
-          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-1 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
-            Select your Role
+          <option value="" disabled className="text-black dark:text-bodydark">
+            Select Students
           </option>
-          <option value="Admin" className="text-body dark:text-bodydark">
-            Admin
-          </option>
-          <option value="Staff" className="text-body dark:text-bodydark">
-            Staff
-          </option>
-          <option value="CEO" className="text-body dark:text-bodydark">
-            CEO
+          <option value="Present" className="text-body dark:text-bodydark">
+            Students
           </option>
         </select>
 
@@ -65,4 +56,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectStatusStudents;

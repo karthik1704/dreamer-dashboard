@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import UserAddForm from "./user-add-form";
+import UsersAddForm from "./user-add-form";
 
 export const metadata: Metadata = {
   title: "Add New User | Dreamer Academy",
@@ -9,6 +9,6 @@ export const metadata: Metadata = {
 export default function NewUserPage() {
   return <div>
 
-   <UserAddForm />
+   <UsersAddForm />
   </div>;
 }

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectBlood: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -10,14 +10,14 @@ const SelectGroupOne: React.FC = () => {
   };
 
   return (
-    <div className="mb-4.5">
+    <div className="">
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
         {" "}
-        Role{" "}
-      </label>
+        Blood Group <span className="text-meta-1">*</span>{" "} 
+      </label> 
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -27,17 +27,32 @@ const SelectGroupOne: React.FC = () => {
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
-            Select your Role
+          <option value="" disabled className="text-black dark:text-bodydark">
+            Select your blood group
           </option>
-          <option value="Admin" className="text-body dark:text-bodydark">
-            Admin
+          <option value="A positive (A+)" className="text-body dark:text-bodydark">
+          A positive (A+)
           </option>
-          <option value="Staff" className="text-body dark:text-bodydark">
-            Staff
+          <option value="A negative (A-" className="text-body dark:text-bodydark">
+          A negative (A-)
           </option>
-          <option value="CEO" className="text-body dark:text-bodydark">
-            CEO
+          <option value="B positive (B+)" className="text-body dark:text-bodydark">
+          B positive (B+)
+          </option>
+          <option value="B negative (B-)" className="text-body dark:text-bodydark">
+          B negative (B-)
+          </option>
+          <option value="AB positive (AB+)" className="text-body dark:text-bodydark">
+          AB positive (AB+)
+          </option>
+          <option value="AB negative (AB-)" className="text-body dark:text-bodydark">
+          AB negative (AB-)
+          </option>
+          <option value="O positive (O+)" className="text-body dark:text-bodydark">
+          O positive (O+)
+          </option>
+          <option value="O positive (O-)" className="text-body dark:text-bodydark">
+          O positive (O-)
           </option>
         </select>
 
@@ -65,4 +80,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectBlood;

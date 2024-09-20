@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectGroupthree: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -17,7 +17,7 @@ const SelectGroupOne: React.FC = () => {
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -65,4 +65,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectGroupthree;
