@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectSubjects: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -10,14 +10,14 @@ const SelectGroupOne: React.FC = () => {
   };
 
   return (
-    <div className="mb-4.5">
+    <div className="">
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
         {" "}
-        Role{" "}
+        Subjects <span className="text-meta-1">*</span>{" "}
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -27,17 +27,41 @@ const SelectGroupOne: React.FC = () => {
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
-            Select your Role
+          <option value="" disabled className="text-black dark:text-bodydark">
+            Select your subject
           </option>
-          <option value="Admin" className="text-body dark:text-bodydark">
-            Admin
+          <option value="NEET / JEE" className="text-body dark:text-bodydark">
+          NEET / JEE
           </option>
-          <option value="Staff" className="text-body dark:text-bodydark">
-            Staff
+          <option value="Physics (Champion)" className="text-body dark:text-bodydark">
+          Physics (Champion)
           </option>
-          <option value="CEO" className="text-body dark:text-bodydark">
-            CEO
+          <option value="Maths (Champion)" className="text-body dark:text-bodydark">
+          Maths (Champion)
+          </option>
+          <option value="Chemistry (Champion)" className="text-body dark:text-bodydark">
+          Chemistry (Champion)
+          </option>
+          <option value="Physics & Maths (Champion)" className="text-body dark:text-bodydark">
+          Physics & Maths (Champion)
+          </option>
+          <option value="Physics & Chemistry (Champion)" className="text-body dark:text-bodydark">
+          Physics & Chemistry (Champion)
+          </option>
+          <option value="Physics & Chemistry & Maths (Champion)" className="text-body dark:text-bodydark">
+          Physics & Chemistry & Maths (Champion)
+          </option>
+          <option value="Maths (Junior)" className="text-body dark:text-bodydark">
+          Maths (Junior)
+          </option>
+          <option value="Science (Junior)" className="text-body dark:text-bodydark">
+          Science (Junior)
+          </option>
+          <option value="Maths & Sciencs (Junior)" className="text-body dark:text-bodydark">
+          Maths & Sciencs (Junior)
+          </option>
+          <option value="NEXUS" className="text-body dark:text-bodydark">
+          NEXUS
           </option>
         </select>
 
@@ -65,4 +89,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectSubjects;

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectCoursesTwo: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -13,7 +13,7 @@ const SelectGroupOne: React.FC = () => {
     <div className="mb-4.5">
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
         {" "}
-        Role{" "}
+        OFFLINE / ONLINE <span className="text-meta-1">*</span>{" "}
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
@@ -28,16 +28,13 @@ const SelectGroupOne: React.FC = () => {
           }`}
         >
           <option value="" disabled className="text-body dark:text-bodydark">
-            Select your Role
+            Select
           </option>
           <option value="Admin" className="text-body dark:text-bodydark">
-            Admin
+            Offline 
           </option>
           <option value="Staff" className="text-body dark:text-bodydark">
-            Staff
-          </option>
-          <option value="CEO" className="text-body dark:text-bodydark">
-            CEO
+            Online
           </option>
         </select>
 
@@ -65,4 +62,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectCoursesTwo;

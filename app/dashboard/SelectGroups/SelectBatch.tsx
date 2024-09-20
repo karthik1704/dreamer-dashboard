@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectBatch: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -10,14 +10,14 @@ const SelectGroupOne: React.FC = () => {
   };
 
   return (
-    <div className="mb-4.5">
+    <div className="">
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
         {" "}
-        Role{" "}
+        Batch <span className="text-meta-1">*</span>{" "}
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -27,17 +27,17 @@ const SelectGroupOne: React.FC = () => {
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
-            Select your Role
+          <option value="" disabled className="text-black dark:text-bodydark">
+            Select your batch
           </option>
-          <option value="Admin" className="text-body dark:text-bodydark">
-            Admin
+          <option value="2024-2025" className="text-body dark:text-bodydark">
+            2024-2025
           </option>
-          <option value="Staff" className="text-body dark:text-bodydark">
-            Staff
+          <option value="2025-2026" className="text-body dark:text-bodydark">
+            2025-2026
           </option>
-          <option value="CEO" className="text-body dark:text-bodydark">
-            CEO
+          <option value="2026-2027" className="text-body dark:text-bodydark">
+          2026-2027
           </option>
         </select>
 
@@ -65,4 +65,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectBatch;

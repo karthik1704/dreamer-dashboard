@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectGroupOne: React.FC = () => {
+const SelectProgram: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -10,14 +10,14 @@ const SelectGroupOne: React.FC = () => {
   };
 
   return (
-    <div className="mb-4.5">
+    <div className="">
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
         {" "}
-        Role{" "}
+        Program Name <span className="text-meta-1">*</span>{" "}
       </label>
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
-        <select
+        <select required
           value={selectedOption}
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -27,17 +27,35 @@ const SelectGroupOne: React.FC = () => {
             isOptionSelected ? "text-black dark:text-white" : ""
           }`}
         >
-          <option value="" disabled className="text-body dark:text-bodydark">
-            Select your Role
+          <option value="" disabled className="text-black dark:text-bodydark">
+            Select your program name
           </option>
-          <option value="Admin" className="text-body dark:text-bodydark">
-            Admin
+          <option value="NEET / JEE" className="text-body dark:text-bodydark">
+            NEET / JEE
           </option>
-          <option value="Staff" className="text-body dark:text-bodydark">
-            Staff
+          <option value="12th" className="text-body dark:text-bodydark">
+            12th
           </option>
-          <option value="CEO" className="text-body dark:text-bodydark">
-            CEO
+          <option value="11th" className="text-body dark:text-bodydark">
+            11th
+          </option>
+          <option value="10th" className="text-body dark:text-bodydark">
+            10th
+          </option>
+          <option value="9th" className="text-body dark:text-bodydark">
+            9th
+          </option>
+          <option value="8th" className="text-body dark:text-bodydark">
+            8th
+          </option>
+          <option value="7th" className="text-body dark:text-bodydark">
+            7th
+          </option>
+          <option value="6th" className="text-body dark:text-bodydark">
+            6th
+          </option>
+          <option value="below 6th" className="text-body dark:text-bodydark">
+            below 6th
           </option>
         </select>
 
@@ -65,4 +83,4 @@ const SelectGroupOne: React.FC = () => {
   );
 };
 
-export default SelectGroupOne;
+export default SelectProgram;
