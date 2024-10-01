@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import UsersAddForm from "./user-add-form";
+import { APP_TITLE } from "@/app/constants";
 
 export const metadata: Metadata = {
-  title: "Add New User | Dreamer Academy",
+  title:  `New User | ${APP_TITLE} `,
   description: "Admin dashboard for dreamer academy",
 };
 

@@ -2,14 +2,20 @@ import { Metadata } from "next";
 import UserTable from "./user-table";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Link from "next/link";
-import UserEditForm from "./[id]/user-edit-form";
+import { APP_TITLE } from "@/app/constants";
+import { getUsers } from "./api";
 
 export const metadata: Metadata = {
-  title: "User | Dreamer Academy",
+  title:  `Users | ${APP_TITLE} `,
   description: "Admin dashboard for dreamer academy",
 };
 
-export default function UserPage() {
+
+
+export default async function UserPage() {
+  const users = await getUsers();
+console.log(users)
+
   return (
     <div className="min-h-svh">
       <Breadcrumb pageName="Users" />
@@ -25,7 +31,8 @@ export default function UserPage() {
       
       <div className="flex flex-col gap-10">
 
-        <UserTable />
+
+        <UserTable users={users}/>
         
       </div>
     </div>

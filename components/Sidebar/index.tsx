@@ -7,6 +7,8 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { APP_LOGO } from "@/app/constants";
+import { late } from "zod";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -17,6 +19,31 @@ const menuGroups = [
   {
     name: "MENU",
     menuItems: [
+
+      {
+        icon:null,
+        label:'Users',
+        route:'/dashboard/users',
+        
+      }, 
+      {
+        icon:null,
+        label:'Students',
+        route:'/dashboard/students',
+
+      }, 
+      {
+        icon:null,
+        label:'Courses',
+        route:'/dashboard/courses',
+      },
+      {
+        icon:null,
+        label:'Attendance',
+        route:'/dashboard/attendance',
+      },
+    
+
       {
         icon: (
           <svg
@@ -334,12 +361,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         }`}
       >
         {/* <!-- SIDEBAR HEADER --> */}
-        <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+        <div className="flex items-center justify-center gap-2 px-6 py-5.5 lg:py-6.5">
           <Link href="/">
             <Image
               width={176}
               height={32}
-              src={"/images/logo/logo.svg"}
+              src={APP_LOGO}
               alt="Logo"
               priority
             />
