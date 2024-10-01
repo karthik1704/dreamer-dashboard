@@ -1,9 +1,10 @@
+"use client";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 
-const DropdownUser = () => {
+const DropdownUser = ({user}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
@@ -15,7 +16,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {user.firt_name} {user.last_name}
           </span>
           <span className="block text-xs">UX Designer</span>
         </span>

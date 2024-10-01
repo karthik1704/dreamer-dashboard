@@ -1,27 +1,18 @@
-"use client";
 import "jsvectormap/dist/jsvectormap.css";
 import "flatpickr/dist/flatpickr.min.css";
-import React, { useEffect, useState } from "react";
-import Loader from "@/components/common/Loader";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import { getCurrentUser } from "./users/api";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  // const pathname = usePathname();
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
+  const user = await getCurrentUser();
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
-      <DefaultLayout>{loading ? <Loader /> : children}</DefaultLayout>
+      <DefaultLayout user={user}>{ children}</DefaultLayout>
     </div>
   );
 }
