@@ -5,6 +5,7 @@ import { URLSearchParams } from "url";
 import { SERVER_API_URL } from "@/app/constants";
 
 import { z } from "zod";
+import { InitialState } from "./signin-form";
 
 const schema = z
   .object({
@@ -21,7 +22,7 @@ type StateType = {
   };
 }
 
-export async function signinJwt(prevState: StateType, formData: FormData) {
+export async function signinJwt(prevState: InitialState, formData: FormData) {
   const username = formData.get("username");
   const password = formData.get("password");
 

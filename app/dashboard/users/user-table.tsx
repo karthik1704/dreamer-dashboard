@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 type User = {
+  username: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -17,13 +20,13 @@ const UserTable = ({ users }: Props) => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                FIRST NAME
+                NAME
               </th>
               <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                GENDER
+                username
               </th>
               <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                QUALIFICATION
+                email
               </th>
               <th className="px-4 py-4 font-medium text-black dark:text-white">
                 ACTIONS
@@ -42,7 +45,7 @@ const UserTable = ({ users }: Props) => {
 
                 <td className="border-b border-[#eee] px-12 py-5 dark:border-strokedark">
                   <p className="font-medium text-black dark:text-white">
-                    {user.email}
+                    {user.username}
                   </p>
                 </td>
 
@@ -54,7 +57,7 @@ const UserTable = ({ users }: Props) => {
 
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
-                    <button className="hover:text-primary">
+                    <Link href={`users/${user.id}`} className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -72,8 +75,8 @@ const UserTable = ({ users }: Props) => {
                           fill=""
                         />
                       </svg>
-                    </button>
-                    <button className="hover:text-primary">
+                    </Link>
+                    {/* <button className="hover:text-primary">
                       <svg
                         className="fill-current"
                         width="18"
@@ -118,7 +121,7 @@ const UserTable = ({ users }: Props) => {
                           fill=""
                         />
                       </svg>
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

@@ -1,10 +1,8 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
-import SelectGroupOne from "../../SelectGroups/SelectGroupOne";
-import SelectGender from "../../SelectGroups/SelectGender";
-import Link from "next/link";
-import SelectBlood from "../../SelectGroups/SelectBlood";
+import { createUser } from "./actions";
+
 
 export const metadata: Metadata = {
   title: "Users Add Form | Dreamer Academy",
@@ -25,7 +23,7 @@ const UsersAddForm = () => {
                 User Infomation
               </h3>
             </div>
-            <form action="#">
+            <form action={createUser}>
               <div className="p-6.5">
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
@@ -61,7 +59,7 @@ const UsersAddForm = () => {
                       Username <span className="text-meta-1">*</span>
                     </label>
                     <input
-                    name="username"
+                      name="username"
                       type="text"
                       required
                       placeholder="Enter your username"
@@ -70,17 +68,12 @@ const UsersAddForm = () => {
                   </div>
                 </div>
 
-                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                  <div className="w-full xl:w-full">
-                    <SelectGroupOne />
-                  </div>
-                </div>
-
                 <div className="mb-4.5">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Password <span className="text-meta-1">*</span>
                   </label>
                   <input
+                  name="password"
                     type="password"
                     required
                     placeholder="Enter your password"
@@ -93,36 +86,12 @@ const UsersAddForm = () => {
                     Re-Enter Password <span className="text-meta-1">*</span>
                   </label>
                   <input
+                  name="password2"
                     type="password"
                     required
                     placeholder="Re-Enter your password"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
-                </div>
-
-                {/* Contact Form */}
-
-                <div className="mb-4 border-b border-stroke px-3 py-4 dark:border-strokedark">
-                  <h3 className="font-medium text-black dark:text-white">
-                    Profile Information
-                  </h3>
-                </div>
-                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                  <div className="w-full xl:w-1/2">
-                    <SelectGender />
-                  </div>
-
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Date Of Birth <span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      type="date"
-                      required
-                      placeholder="Enter your date of birth [dd/mm/yyyy]"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
                 </div>
 
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -131,6 +100,7 @@ const UsersAddForm = () => {
                       Email <span className="text-meta-1">*</span>
                     </label>
                     <input
+                    name="email"
                       type="email"
                       required
                       placeholder="Enter your email"
@@ -143,42 +113,13 @@ const UsersAddForm = () => {
                       Phone Number <span className="text-meta-1">*</span>
                     </label>
                     <input
-                      type="number"
+                    name="phone"
+                      type="text"
                       required
                       placeholder="Enter your phone number"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
-                </div>
-
-                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                  <div className="w-full xl:w-1/2">
-                    <SelectBlood />
-                  </div>
-
-                  <div className="w-full xl:w-1/2">
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Parent Phone Number <span className="text-meta-1">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      required
-                      placeholder="Enter your parent phone number"
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Address
-                  </label>
-                  <textarea
-                    rows={3}
-                    required
-                    placeholder="Enter your address"
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  ></textarea>
                 </div>
 
                 <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">

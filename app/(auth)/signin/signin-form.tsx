@@ -1,12 +1,11 @@
 "use client";
-import React, {useEffect, useState} from 'react';
-import { useFormState } from 'react-dom';
+import React, {useActionState, useEffect, useState} from 'react';
 import { signinJwt } from './actions';
 import SubmitButton from '@/components/submit-button';
 
-type InitialState = {
-  message?: string|null;
-  fieldErrors?: {
+export type InitialState = {
+  message: string|null;
+  fieldErrors: {
     username?: string | string[]|null;
     password?: string | string[]|null;
   };
@@ -23,7 +22,7 @@ const initialState: InitialState = {
 
 
 const SigninForm = () => {
-    const [state, actionFn] = useFormState(signinJwt, initialState)
+    const [state, actionFn] = useActionState(signinJwt, initialState)
     
     useEffect(()=>{
       if(state.message){
