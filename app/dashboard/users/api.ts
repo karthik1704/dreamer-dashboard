@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const getUsers = async () => {
-  const access = cookies().get("access");
+  const access = (await cookies()).get("access");
   if (!access) {
     redirect("/signin");
   }
@@ -29,7 +29,7 @@ export const getUsers = async () => {
 };
 
 export const getCurrentUser = async () => {
-  const access = cookies().get("access");
+  const access = (await cookies()).get("access");
   if (!access) {
     redirect("/signin");
   }

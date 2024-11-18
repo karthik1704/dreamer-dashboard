@@ -92,7 +92,7 @@ export async function signinJwt(prevState: StateType, formData: FormData) {
       console.log(resJson);
       const now = new Date();
       now.setTime(now.getTime() + 2 * 24 * 60 * 60 * 1000);
-      cookies().set("access", resJson.access_token, { expires: now });
+      (await cookies()).set("access", resJson.access_token, { expires: now });
     }
   } catch (e) {
     console.log(e);

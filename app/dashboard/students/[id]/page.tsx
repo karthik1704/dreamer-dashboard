@@ -6,7 +6,12 @@ export const metadata: Metadata = {
   description: "Admin dashboard for dreamer academy",
 };
 
-export default function EditUserPage({params:{id}}: { params: { id: string } }) {
+export default async function EditUserPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
 
   return <div>
 
