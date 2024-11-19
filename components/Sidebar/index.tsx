@@ -19,30 +19,43 @@ const menuGroups = [
   {
     name: "MENU",
     menuItems: [
+      // {
+      //   icon:null,
+      //   label:'Courses',
+      //   route:'/dashboard/courses',
+      // },
+      // {
+      //   icon:null,
+      //   label:'Attendance',
+      //   route:'/dashboard/attendance',
+      // },
 
       {
-        icon:null,
-        label:'Users',
-        route:'/dashboard/users',
-        
-      }, 
+        icon: null,
+        label: "Batches",
+        route: "/dashboard/batches",
+      },
       {
-        icon:null,
-        label:'Students',
-        route:'/dashboard/students',
+        icon: null,
+        label: "Notes",
+        route: "/dashboard/notes",
+      },
+      {
+        icon: null,
+        label: "Vidoes",
+        route: "/dashboard/videos",
+      },
 
-      }, 
       {
-        icon:null,
-        label:'Courses',
-        route:'/dashboard/courses',
+        icon: null,
+        label: "Students",
+        route: "/dashboard/students",
       },
       {
-        icon:null,
-        label:'Attendance',
-        route:'/dashboard/attendance',
+        icon: null,
+        label: "Users",
+        route: "/dashboard/users",
       },
-    
 
       {
         icon: (
@@ -363,13 +376,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         {/* <!-- SIDEBAR HEADER --> */}
         <div className="flex items-center justify-center gap-2 px-6 py-5.5 lg:py-6.5">
           <Link href="/">
-            <Image
-              width={176}
-              height={32}
-              src={APP_LOGO}
-              alt="Logo"
-              priority
-            />
+            <Image width={176} height={32} src={APP_LOGO} alt="Logo" priority />
           </Link>
 
           <button
