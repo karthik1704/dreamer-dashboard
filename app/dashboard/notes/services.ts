@@ -6,14 +6,14 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
-export const getBatches = async () => {
+export const getNotes = async () => {
     const access = (await cookies()).get('access');
 
     if (!access) {
         redirect('/signin');
     }
 
-    const res = await fetch(`${SERVER_API_URL}/batches/`, {
+    const res = await fetch(`${SERVER_API_URL}/notes/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -30,9 +30,9 @@ export const getBatches = async () => {
         console.error(res);
     }
 
-    const batches = await res.json();
+    const notes = await res.json();
 
-    return batches;
+    return notes;
 
 
 }

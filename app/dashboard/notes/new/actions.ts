@@ -4,7 +4,7 @@ import { SERVER_API_URL } from "@/app/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const crateBatch = async (formData: FormData) => {
+export const createNote = async (formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
 
   const access = (await cookies()).get("access");
@@ -12,7 +12,7 @@ export const crateBatch = async (formData: FormData) => {
     redirect("/signin");
   }
 
-  const response = await fetch(`${SERVER_API_URL}/batches/`, {
+  const response = await fetch(`${SERVER_API_URL}/notes/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,5 +32,5 @@ export const crateBatch = async (formData: FormData) => {
     console.error(resjson.detail[0].input);
   }
 
-  response.status === 201 && redirect("/dashboard/batches");
+  response.status === 201 && redirect("/dashboard/notes");
 };

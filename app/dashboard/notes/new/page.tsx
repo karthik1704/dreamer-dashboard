@@ -1,18 +1,22 @@
 import { Metadata } from "next";
-import BatchesAddForm from "./batches-add-form";
+import NoteAddForm from "./notes-add-form";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import { getBatches } from "../../batches/services";
 
 export const metadata: Metadata = {
-  title: "Add New Batch | Seyon Academy",
+  title: "Add New Note | Seyon Academy",
   description: "Admin dashboard for dreamer academy",
 };
 
-export default function NewBatchPage() {
+export default async function NewBatchPage() {
+
+  const batches = await getBatches();
+
   return (
     <div>
-      <Breadcrumb pageName="Batch Add Form" />
+      <Breadcrumb pageName="Note Add Form" />
 
-      <BatchesAddForm />
+      <NoteAddForm batches = {batches}/>
     </div>
   );
 }

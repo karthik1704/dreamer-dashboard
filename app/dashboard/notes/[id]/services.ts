@@ -6,14 +6,14 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
-export const getBatch = async (id:string) => {
+export const getNote = async (id:string) => {
     const access = (await cookies()).get('access');
 
     if (!access) {
         redirect('/signin');
     }
 
-    const res = await fetch(`${SERVER_API_URL}/batches/${id}/`, {
+    const res = await fetch(`${SERVER_API_URL}/notes/${id}/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

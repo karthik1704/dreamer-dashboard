@@ -1,9 +1,14 @@
 "use client";
 
 import Select from "@/components/select";
-import { crateBatch } from "./actions";
+import { createNote } from "./actions";
+import { Batch } from "@/types/batches";
 
-const BatchesAddForm = () => {
+type Props = {
+  batches: Batch[];
+};
+
+const NoteAddForm = ({ batches }: Props) => {
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -14,61 +19,55 @@ const BatchesAddForm = () => {
               Courses Add Form
             </h3> */}
           </div>
-          <form action={crateBatch}>
+          <form action={createNote}>
             <div className="p-6.5">
-              <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                <div className="w-full ">
+              <div className="mb-4.5 flex flex-col gap-6">
+                <Select name="batch_id" label="Batch" required>
+                  {batches.map((batch) => (
+                    <option key={batch.id} value={batch.id}>
+                      {batch.batch_name}
+                    </option>
+                  ))}
+                </Select>
+                <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Batch Name <span className="text-meta-1">*</span>
+                    Note <span className="text-meta-1">*</span>
                   </label>
                   <input
-                    name="batch_name"
+                    name="note"
                     type="text"
                     required
-                    placeholder="Enter your batch name"
+                    placeholder="Enter your note name"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
 
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Batch Code
+                    Note Link
                   </label>
                   <input
-                    name="batch_code"
+                    name="note_link"
                     type="text"
                     required
-                    placeholder="Enter your batch code"
+                    placeholder="Enter note link"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
 
-              <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                <div className="w-full ">
-                  <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Board
-                  </label>
-                  <input
-                    name="board"
-                    type="text"
-                    required
-                    placeholder="Enter your board name"
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-                <Select name="mode" label="Mode" required>
-                  <option value="ONLINE">Online</option>
-                  <option value="OFFLINE">Offline</option>
-                </Select>
+              <div className="mb-2 w-full">
+                <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                  Description
+                </label>
+                <textarea
+                  rows={6}
+                  placeholder="Default textarea"
+                  name="note_description"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                ></textarea>
               </div>
-              <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                
-                <Select name="target" label="Target" required>
-                  <option value="NEET">NEET</option>
-                  <option value="BOARD">BOARD</option>
-                </Select>
-              </div>
+
               <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
                 Submit
               </button>
@@ -80,4 +79,4 @@ const BatchesAddForm = () => {
   );
 };
 
-export default BatchesAddForm;
+export default NoteAddForm;

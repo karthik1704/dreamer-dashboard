@@ -1,11 +1,11 @@
-import { Batch } from "@/types/batches";
+import { Note } from "@/types/notes";
 import Link from "next/link";
 
 type Props = {
-  batches: Batch[];
+  notes: Note[];
 };
 
-const BatchesTable = ({ batches }: Props) => {
+const BatchesTable = ({ notes }: Props) => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -13,11 +13,9 @@ const BatchesTable = ({ batches }: Props) => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                BATCH NAME
+               Note
               </th>
-              <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">
-                BATCH CODE{" "}
-              </th>
+             
 
               <th className="px-4 py-4 font-medium text-black dark:text-white">
                 ACTION
@@ -26,24 +24,20 @@ const BatchesTable = ({ batches }: Props) => {
           </thead>
 
           <tbody>
-            {batches.map((batch, key) => (
-              <tr key={batch.id}>
+            {notes.map((note, key) => (
+              <tr key={note.id}>
                 <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {batch.batch_name}
+                    {note.note}
                   </h5>
                 </td>
 
-                <td className="border-b border-[#eee] px-5 py-5 dark:border-strokedark">
-                  <p className="font-medium text-black dark:text-white">
-                    {batch.batch_code}
-                  </p>
-                </td>
+             
 
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <Link
-                      href={`batches/${batch.id}`}
+                      href={`notes/${note.id}`}
                       className="hover:text-primary"
                     >
                       <svg
