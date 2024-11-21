@@ -10,6 +10,16 @@ const nextConfig = {
           },
         ],
     },
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'api.seyonacademy.com',
+            port: '',
+            pathname: '/static/**',
+          },
+        ],
+    },
 };
 
 export default nextConfig;
