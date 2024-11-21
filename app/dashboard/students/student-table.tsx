@@ -1,15 +1,11 @@
+import { Batch } from "@/types/batches";
+import { Student } from "@/types/students";
 import Link from "next/link";
 
-type Student = {
-  id: number;
-  Full_Name: string;
-  Gender: string;
-  Reg_Num: string;
-  Class: string;
-  Personal_Ph_No: number;
-}[];
-
-const StudentsTable = ({ students }: { students: Student }) => {
+type Props = {
+  students: Student[];
+}
+const StudentsTable = ({ students }: Props) => {
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -66,13 +62,13 @@ const StudentsTable = ({ students }: { students: Student }) => {
 
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p className="px-1 font-medium text-black dark:text-white">
-                      {student.class}
+                      {student.batch?.batch_name}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p className="px-1 font-medium text-black dark:text-white">
-                      {student.phone}
+                      {student.student_profile?.personal_number}
                     </p>
                   </td>
 

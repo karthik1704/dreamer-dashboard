@@ -10,13 +10,12 @@ export const metadata: Metadata = {
 };
 
 interface Props {
-  params: {
-    id: string;
-  };
+  params:Promise<{ id: string }>;
+
 }
 
-export default async function EditBatchesPage({params: {id}}: Props) {
-
+export default async function EditBatchesPage({params}: Props) {
+    const {id} = await params;
     const video = await getVideo(id);
     const batches = await getBatches();
 

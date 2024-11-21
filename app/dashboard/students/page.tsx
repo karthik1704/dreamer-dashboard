@@ -2,13 +2,17 @@ import { Metadata } from "next";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Link from "next/link";
 import StudentsTable from "./student-table";
+import { getStudents } from "./services";
 
 export const metadata: Metadata = {
   title: "Students | Dreamer Academy",
   description: "Admin dashboard for dreamer academy",
 };
 
-export default function StudentsPage() {
+export default async function StudentsPage() {
+
+  const students = await getStudents();
+
   return (
     <div className="min-h-svh">
       <Breadcrumb pageName="Students" />
@@ -22,7 +26,7 @@ export default function StudentsPage() {
       </div>
       
       <div className="flex flex-col gap-10">
-        < StudentsTable/>
+        < StudentsTable students={students} />
       </div>
     </div>
   );
