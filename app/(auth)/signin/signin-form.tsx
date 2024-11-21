@@ -4,18 +4,18 @@ import { signinJwt } from './actions';
 import SubmitButton from '@/components/submit-button';
 
 export type InitialState = {
-  message: string|null;
+  message: any;
   fieldErrors: {
-    username?: string | string[]|null;
-    password?: string | string[]|null;
+    username?: string | string[];
+    password?: string | string[];
   };
 };
 
 const initialState: InitialState = {
-  message: null,
+  message: undefined,
   fieldErrors: {
-    username: null,
-    password: null,
+    username: undefined,
+    password: undefined,
   },
 };
 

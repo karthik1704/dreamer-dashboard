@@ -15,10 +15,10 @@ const schema = z
   .required({ username: true, password: true });
 
 type StateType = {
-  message?: string | null;
+  message?: string | undefined;
   fieldErrors?: {
-    username?: string |string[] | null;
-    password?: string |string[]| null;
+    username?: string |string[] | undefined;
+    password?: string |string[]| undefined;
   };
 }
 
@@ -35,7 +35,7 @@ export async function signinJwt(prevState: InitialState, formData: FormData) {
   if (!validatedFields.success) {
     console.log(validatedFields.error.flatten().fieldErrors);
     return {
-      message: null,
+      message: undefined,
       fieldErrors: {
         username: validatedFields.error.flatten().fieldErrors.username,
         password: validatedFields.error.flatten().fieldErrors.password,
@@ -68,8 +68,8 @@ export async function signinJwt(prevState: InitialState, formData: FormData) {
         ...prevState,
         message: error?.detail,
         fieldErrors: {
-          username: null,
-          password: null,
+          username: undefined,
+          password: undefined,
         },
       };
     }
@@ -82,8 +82,8 @@ export async function signinJwt(prevState: InitialState, formData: FormData) {
         ...prevState,
         message: error?.detail,
         fieldErrors: {
-          username: null,
-          password: null,
+          username: undefined,
+          password: undefined,
         },
       };
     }
