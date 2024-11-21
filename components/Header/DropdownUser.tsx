@@ -16,7 +16,7 @@ const DropdownUser = ({user}) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {user.firt_name} {user.last_name}
+            {user.first_name} {user.last_name}
           </span>
           <span className="block text-xs">UX Designer</span>
         </span>
