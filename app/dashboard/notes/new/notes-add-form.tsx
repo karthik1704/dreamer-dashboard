@@ -3,12 +3,17 @@
 import Select from "@/components/select";
 import { createNote } from "./actions";
 import { Batch } from "@/types/batches";
+import { NoteCategory } from "@/types/notes";
+import { transformCategories } from "@/lib/transform-data";
+import CustomSelect from "@/components/category-select/custom-select";
 
 type Props = {
   batches: Batch[];
+  categories: NoteCategory[];
 };
 
-const NoteAddForm = ({ batches }: Props) => {
+const NoteAddForm = ({ batches,categories }: Props) => {
+  const transformedCategories = transformCategories(categories);
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -29,6 +34,9 @@ const NoteAddForm = ({ batches }: Props) => {
                     </option>
                   ))}
                 </Select>
+                <div>
+                  <CustomSelect categories={transformedCategories} name="category_id" /> 
+                </div>
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Note <span className="text-meta-1">*</span>

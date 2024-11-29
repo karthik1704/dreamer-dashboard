@@ -1,24 +1,14 @@
 "use client";
 
 import Select from "@/components/select";
-import { EditNote } from "./actions";
-import { useParams } from "next/navigation";
+import { createNote } from "./actions";
 import { Batch } from "@/types/batches";
-import { Note, NoteCategory } from "@/types/notes";
-import CustomSelect from "@/components/category-select/custom-select";
-import { transformCategories } from "@/lib/transform-data";
 
 type Props = {
   batches: Batch[];
-  note:Note;
-  categories: NoteCategory[];
 };
 
-const NoteEditForm = ({ batches, note, categories }: Props) => {
-  const { id } = useParams();
-  const EditNoteWithId = EditNote.bind(null, id as string);
-  const transformedCategories = transformCategories(categories);
-
+const NoteAddForm = ({ batches }: Props) => {
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -29,19 +19,16 @@ const NoteEditForm = ({ batches, note, categories }: Props) => {
               Courses Add Form
             </h3> */}
           </div>
-          <form action={EditNoteWithId}>
+          <form action={createNote}>
             <div className="p-6.5">
               <div className="mb-4.5 flex flex-col gap-6">
-                <Select name="batch_id" label="Batch" defaultValue={note.batch_id} required>
+                <Select name="batch_id" label="Batch" required>
                   {batches.map((batch) => (
                     <option key={batch.id} value={batch.id}>
                       {batch.batch_name}
                     </option>
                   ))}
                 </Select>
-                <div>
-                  <CustomSelect categories={transformedCategories} name="category_id" defaultValue={note.category_id} />
-                </div>
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Note <span className="text-meta-1">*</span>
@@ -49,7 +36,6 @@ const NoteEditForm = ({ batches, note, categories }: Props) => {
                   <input
                     name="note"
                     type="text"
-                    defaultValue={note.note}
                     required
                     placeholder="Enter your note name"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -63,7 +49,6 @@ const NoteEditForm = ({ batches, note, categories }: Props) => {
                   <input
                     name="note_link"
                     type="text"
-                    defaultValue={note.note_link}
                     required
                     placeholder="Enter note link"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -79,8 +64,6 @@ const NoteEditForm = ({ batches, note, categories }: Props) => {
                   rows={6}
                   placeholder="Default textarea"
                   name="note_description"
-                  defaultValue={note.note_description}
-                  
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 ></textarea>
               </div>
@@ -96,4 +79,4 @@ const NoteEditForm = ({ batches, note, categories }: Props) => {
   );
 };
 
-export default NoteEditForm;
+export default NoteAddForm;

@@ -4,21 +4,16 @@ import Select from "@/components/select";
 import { EditNote } from "./actions";
 import { useParams } from "next/navigation";
 import { Batch } from "@/types/batches";
-import { Note, NoteCategory } from "@/types/notes";
-import CustomSelect from "@/components/category-select/custom-select";
-import { transformCategories } from "@/lib/transform-data";
+import { Note } from "@/types/notes";
 
 type Props = {
   batches: Batch[];
   note:Note;
-  categories: NoteCategory[];
 };
 
-const NoteEditForm = ({ batches, note, categories }: Props) => {
+const NoteEditForm = ({ batches, note }: Props) => {
   const { id } = useParams();
   const EditNoteWithId = EditNote.bind(null, id as string);
-  const transformedCategories = transformCategories(categories);
-
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -39,9 +34,6 @@ const NoteEditForm = ({ batches, note, categories }: Props) => {
                     </option>
                   ))}
                 </Select>
-                <div>
-                  <CustomSelect categories={transformedCategories} name="category_id" defaultValue={note.category_id} />
-                </div>
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Note <span className="text-meta-1">*</span>

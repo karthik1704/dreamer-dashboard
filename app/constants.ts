@@ -6,9 +6,9 @@ export const APP_LOGO_svg = null;
 export const APP_LOGO_jepg = null;
 
 // server section
-// export const SERVER_API_URL = "http://localhost:8000";
-export const SERVER_API_URL = "https://api.seyonacademy.com";
-
+export const SERVER_API_URL = "http://localhost:8000";
+// export const SERVER_API_URL = "https://api.seyonacademy.com";
+ 
 export const BLOODGROUPS = [
   {
     name: "A positive (A+)",
