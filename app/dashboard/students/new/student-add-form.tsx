@@ -322,7 +322,7 @@ function StudentsAddForm({ batches }: Props) {
                       </label>
                       <input
                         type="text"
-                        required
+                        
                         {...register("student_profile.father_phone_number")}
                         placeholder="Enter your father phone number"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -335,7 +335,7 @@ function StudentsAddForm({ batches }: Props) {
                       </label>
                       <input
                         type="text"
-                        required
+                        
                         {...register("student_profile.mother_phone_number")}
                         placeholder="Enter your mother phone number"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -350,7 +350,6 @@ function StudentsAddForm({ batches }: Props) {
                       </label>
                       <input
                         type="number"
-                        required
                         {...register("student_profile.personal_number")}
                         placeholder="Enter your personal phone number"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -363,7 +362,6 @@ function StudentsAddForm({ batches }: Props) {
                       </label>
                       <input
                         type="number"
-                        required
                         {...register("student_profile.siblings_phone_number")}
                         placeholder="Enter your sibiling phone number"
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
