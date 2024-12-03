@@ -5,6 +5,8 @@ export type Note = {
     category_id: number;
     note_description: string;
     batch_id: number;
+    batch: {id: number, batch_name: string};
+    category: {id: number, category_name: string};
 };
 
 export type CreateNote = Omit<Note, 'id'>;

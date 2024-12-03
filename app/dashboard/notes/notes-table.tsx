@@ -13,9 +13,15 @@ const BatchesTable = ({ notes }: Props) => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-               Note
+                Note
               </th>
-             
+
+              <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+                Batch
+              </th>
+              <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+                Category
+              </th>
 
               <th className="px-4 py-4 font-medium text-black dark:text-white">
                 ACTION
@@ -31,8 +37,16 @@ const BatchesTable = ({ notes }: Props) => {
                     {note.note}
                   </h5>
                 </td>
-
-             
+                <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                  <h5 className="font-medium text-black dark:text-white">
+                    {note?.batch?.batch_name ?? "-"}
+                  </h5>
+                </td>
+                <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                  <h5 className="font-medium text-black dark:text-white">
+                    {note?.category?.category_name ?? "-"}
+                  </h5>
+                </td>
 
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
