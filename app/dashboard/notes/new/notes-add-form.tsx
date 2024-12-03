@@ -3,17 +3,47 @@
 import Select from "@/components/select";
 import { createNote } from "./actions";
 import { Batch } from "@/types/batches";
-import { NoteCategory } from "@/types/notes";
+import { CreateNote, NoteCategory } from "@/types/notes";
 import { transformCategories } from "@/lib/transform-data";
-import CustomSelect from "@/components/category-select/custom-select";
+import dynamic from "next/dynamic";
+import { getCategoriesByBatchId } from "@/app/services/notes-categories";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+const CustomSelect = dynamic(
+  () => import("@/components/category-select/custom-select"),
+  {
+    ssr: false, // Disable SSR for this component
+  },
+);
 
 type Props = {
   batches: Batch[];
-  categories: NoteCategory[];
 };
 
-const NoteAddForm = ({ batches,categories }: Props) => {
-  const transformedCategories = transformCategories(categories);
+const NoteAddForm = ({ batches }: Props) => {
+  const {register,control, watch, handleSubmit} = useForm<CreateNote>()
+  const watchBatchId = watch("batch_id");
+  const [categories, setCategories] = useState<any[]>([]);
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      if (watchBatchId) {
+        const categories: NoteCategory[] =
+          await getCategoriesByBatchId(watchBatchId);
+        const transformedCategories = transformCategories(categories);
+        setCategories(transformedCategories);
+      }
+    };
+    fetchCategories();
+  }, [watchBatchId]);
+
+  const handleOnSubmit = async (data:CreateNote) => {
+    console.log(data);
+    const response = await createNote(data);
+   
+  };
+  
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -27,22 +57,35 @@ const NoteAddForm = ({ batches,categories }: Props) => {
           <form action={createNote}>
             <div className="p-6.5">
               <div className="mb-4.5 flex flex-col gap-6">
-                <Select name="batch_id" label="Batch" required>
+                <Select name="batch_id" register={register} label="Batch" required>
                   {batches.map((batch) => (
                     <option key={batch.id} value={batch.id}>
                       {batch.batch_name}
                     </option>
                   ))}
                 </Select>
-                <div>
-                  <CustomSelect categories={transformedCategories} name="category_id" /> 
+                <div className="w-full">
+                  <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    Category <span className="text-meta-1">*</span>
+                  </label>
+
+                  <Controller
+                    name="category_id"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <CustomSelect field={field} categories={categories} />
+                        {fieldState.error && <p>{fieldState.error.message}</p>}
+                      </>
+                    )}
+                  />
                 </div>
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Note <span className="text-meta-1">*</span>
                   </label>
                   <input
-                    name="note"
+                    {...register("note")}
                     type="text"
                     required
                     placeholder="Enter your note name"
@@ -55,7 +98,7 @@ const NoteAddForm = ({ batches,categories }: Props) => {
                     Note Link
                   </label>
                   <input
-                    name="note_link"
+                    {...register("note_link")}
                     type="text"
                     required
                     placeholder="Enter note link"
@@ -71,7 +114,7 @@ const NoteAddForm = ({ batches,categories }: Props) => {
                 <textarea
                   rows={6}
                   placeholder="Default textarea"
-                  name="note_description"
+                  {...register("note_description")}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 ></textarea>
               </div>

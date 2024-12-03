@@ -323,7 +323,7 @@ function StudentsEditForm({ batches, student }: Props) {
                     <div className="w-full xl:w-1/2">
                       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Father Phone Number{" "}
-                        <span className="text-meta-1">*</span>
+                        {/* <span className="text-meta-1">*</span> */}
                       </label>
                       <input
                         type="text"
@@ -336,7 +336,7 @@ function StudentsEditForm({ batches, student }: Props) {
                     <div className="w-full xl:w-1/2">
                       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Mother Phone Number{" "}
-                        <span className="text-meta-1">*</span>
+                        {/* <span className="text-meta-1">*</span> */}
                       </label>
                       <input
                         type="text"
@@ -351,7 +351,7 @@ function StudentsEditForm({ batches, student }: Props) {
                     <div className="w-full xl:w-1/2">
                       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Personal Phone Number{" "}
-                        <span className="text-meta-1">*</span>
+                        {/* <span className="text-meta-1">*</span> */}
                       </label>
                       <input
                         type="number"
@@ -364,7 +364,7 @@ function StudentsEditForm({ batches, student }: Props) {
                     <div className="w-full xl:w-1/2">
                       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                         Sibiling Phone Number{" "}
-                        <span className="text-meta-1">*</span>
+                        {/* <span className="text-meta-1">*</span> */}
                       </label>
                       <input
                         type="number"
