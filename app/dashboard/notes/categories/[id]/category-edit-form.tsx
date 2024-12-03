@@ -7,6 +7,10 @@ import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import Select from "@/components/select";
 import { Batch } from "@/types/batches";
+import { Controller, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { getCategoriesByBatchId } from "@/app/services/notes-categories";
+import { set } from "zod";
 
 const CustomSelect = dynamic(
   () => import("@/components/category-select/custom-select"),
@@ -16,17 +20,39 @@ const CustomSelect = dynamic(
 );
 
 type Props = {
-  categories: NoteCategory[];
   category: NoteCategory;
   batches: Batch[];
 };
 
-const CategoryEditForm = ({ categories, category, batches }: Props) => {
-  const transformedCategories = transformCategories(categories);
-  console.log(transformedCategories);
+const CategoryEditForm = ({ category, batches }: Props) => {
+  const [categories, setCategories] = useState<any[]>([]);
+  const { register, handleSubmit, watch, control } = useForm({
+    defaultValues: {
+      batch_id: category.batch_id,
+      parent_id: category.parent_id,
+      category_name: category.category_name,
+    },
+  });
   const { id } = useParams<{ id: string }>();
-
   const updateCategoryWithId = updateCategory.bind(null, id);
+  const watchBatchId = watch("batch_id");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      if (watchBatchId) {
+        const categories: NoteCategory[] =
+          await getCategoriesByBatchId(watchBatchId);
+        const transformedCategories = transformCategories(categories);
+        setCategories(transformedCategories);
+      }
+    };
+    fetchCategories();
+  }, [watchBatchId]);
+
+  const onSubmit = async (data: any) => {
+    console.log(data);
+    const res = await updateCategoryWithId(data);
+  };
 
   return (
     <div className="sm:grid-cols-2">
@@ -38,10 +64,15 @@ const CategoryEditForm = ({ categories, category, batches }: Props) => {
               Courses Add Form
             </h3> */}
           </div>
-          <form action={updateCategoryWithId}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-6.5">
               <div className="mb-4.5 flex flex-col gap-6">
-                <Select name="batch_id" label="Batch" defaultValue={category.batch_id} required>
+                <Select
+                  name="batch_id"
+                  register={register}
+                  label="Batch"
+                  required
+                >
                   {batches.map((batch) => (
                     <option key={batch.id} value={batch.id}>
                       {batch.batch_name}
@@ -52,10 +83,16 @@ const CategoryEditForm = ({ categories, category, batches }: Props) => {
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Parent Name <span className="text-meta-1">*</span>
                   </label>
-                  <CustomSelect
-                    categories={transformedCategories}
-                    defaultValue={category.parent_id ?? undefined}
+
+                  <Controller
                     name="parent_id"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <CustomSelect field={field} categories={categories} />
+                        {fieldState.error && <p>{fieldState.error.message}</p>}
+                      </>
+                    )}
                   />
                 </div>
                 <div className="w-full">
@@ -63,10 +100,9 @@ const CategoryEditForm = ({ categories, category, batches }: Props) => {
                     Category Name <span className="text-meta-1">*</span>
                   </label>
                   <input
-                    name="category_name"
+                    {...register("category_name")}
                     type="text"
                     required
-                    defaultValue={category.category_name}
                     placeholder="Enter your note name"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />

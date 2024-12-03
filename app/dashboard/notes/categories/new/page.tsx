@@ -11,14 +11,13 @@ export const metadata: Metadata = {
 
 export default async function NewBatchPage() {
 
-  const categories = await getCategoriesWithoutRepeat();
   const batches = await getBatches();
 
   return (
     <div>
       <Breadcrumb pageName="Note Add Form" />
 
-      <CategoryAddForm categories = {categories} batches={batches} />
+      <CategoryAddForm  batches={batches} />
     </div>
   );
 }

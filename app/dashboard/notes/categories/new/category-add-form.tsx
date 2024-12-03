@@ -1,11 +1,14 @@
 "use client";
 
-import { createNote } from "./actions";
-import { NoteCategory } from "@/types/notes";
+import { createCategory } from "./actions";
+import { CreateNoteCategory, NoteCategory } from "@/types/notes";
 import { transformCategories } from "@/lib/transform-data";
 import dynamic from "next/dynamic";
 import { Batch } from "@/types/batches";
 import Select from "@/components/select";
+import { Controller, useForm } from "react-hook-form";
+import { use, useEffect, useState } from "react";
+import { getCategoriesByBatchId } from "@/app/services/notes-categories";
 
 const CustomSelect = dynamic(
   () => import("@/components/category-select/custom-select"),
@@ -15,13 +18,32 @@ const CustomSelect = dynamic(
 );
 
 type Props = {
-  categories: NoteCategory[];
   batches: Batch[];
 };
 
-const CategoryAddForm = ({ categories, batches }: Props) => {
-  const transformedCategories = transformCategories(categories);
-  console.log(transformedCategories);
+const CategoryAddForm = ({ batches }: Props) => {
+  const [categories, setCategories] = useState<any[]>([]);
+  const { register, handleSubmit, watch, control } =
+    useForm<CreateNoteCategory>();
+  const watchBatchId = watch("batch_id");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      if (watchBatchId) {
+        const categories: NoteCategory[] =
+          await getCategoriesByBatchId(watchBatchId);
+        const transformedCategories = transformCategories(categories);
+        setCategories(transformedCategories);
+      }
+    };
+    fetchCategories();
+  }, [watchBatchId]);
+
+  const handleOnSubmit = async (data: CreateNoteCategory) => {
+    console.log(data);
+    const response = await createCategory(data);
+  };
+
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -32,10 +54,15 @@ const CategoryAddForm = ({ categories, batches }: Props) => {
               Courses Add Form
             </h3> */}
           </div>
-          <form action={createNote}>
+          <form onSubmit={handleSubmit(handleOnSubmit)}>
             <div className="p-6.5">
               <div className="mb-4.5 flex flex-col gap-6">
-                <Select name="batch_id" label="Batch" required>
+                <Select
+                  name="batch_id"
+                  register={register}
+                  label="Batch"
+                  required
+                >
                   {batches.map((batch) => (
                     <option key={batch.id} value={batch.id}>
                       {batch.batch_name}
@@ -46,9 +73,16 @@ const CategoryAddForm = ({ categories, batches }: Props) => {
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                     Parent Name <span className="text-meta-1">*</span>
                   </label>
-                  <CustomSelect
-                    categories={transformedCategories}
+
+                  <Controller
                     name="parent_id"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <>
+                        <CustomSelect field={field} categories={categories} />
+                        {fieldState.error && <p>{fieldState.error.message}</p>}
+                      </>
+                    )}
                   />
                 </div>
                 <div className="w-full">
@@ -56,7 +90,7 @@ const CategoryAddForm = ({ categories, batches }: Props) => {
                     Category Name <span className="text-meta-1">*</span>
                   </label>
                   <input
-                    name="category_name"
+                    {...register("category_name", { required: true })}
                     type="text"
                     required
                     placeholder="Enter your note name"

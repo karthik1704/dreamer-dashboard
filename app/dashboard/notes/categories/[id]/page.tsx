@@ -16,7 +16,6 @@ interface Props {
 
 export default async function EditCategoryPage({ params }: Props) {
   const { id } = await params;
-  const categories = await getCategories();
   const category = await getCategory(id);
   const batches = await getBatches();
 
@@ -24,7 +23,7 @@ export default async function EditCategoryPage({ params }: Props) {
     <div>
       <Breadcrumb pageName="Category Edit Form" />
 
-      <CategoryEditForm categories={categories} category={category} batches={batches} />
+      <CategoryEditForm  category={category} batches={batches} />
     </div>
   );
 }

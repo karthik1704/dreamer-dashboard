@@ -4,7 +4,7 @@ import { SERVER_API_URL } from "@/app/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const EditNote = async (id:string,formData: FormData) => {
+export const EditNote = async (id:string,formData: any) => {
   const data = Object.fromEntries(formData.entries());
 
   const access = (await cookies()).get("access");

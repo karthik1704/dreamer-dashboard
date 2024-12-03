@@ -19,10 +19,10 @@ const flattenCategories = (categories: any[], depth: number = 0, parentValue: st
   }, []);
 };
 
-const CustomSelect = ({ categories, name, defaultValue }: { categories:any, name?:string | undefined,defaultValue?: number }) => {
+
+const CustomSelect = ({ categories, defaultValue, field }: { categories: any[], defaultValue?: number, field: any }) => {
   const flattenedCategories = flattenCategories(categories);
-  console.log(typeof defaultValue);
-  console.log(defaultValue)
+  console.log(flattenedCategories)
   // Find the default category value from the flattened categories
   const defaultCategory = flattenedCategories.find(
     (cat) => cat.value === defaultValue
@@ -59,15 +59,16 @@ const CustomSelect = ({ categories, name, defaultValue }: { categories:any, name
 
   return (
     <Select
-      name={name}
-      value={selectedValue}
-      onChange={handleChange}
+      inputRef={field.ref}
+      value={field.value ? flattenedCategories.find((cat) => cat.value === field.value) : undefined}
+      onChange={(val) => field.onChange(val.value)}
       options={flattenedCategories}
       getOptionLabel={(e) => e.label}
       getOptionValue={(e) => e.value}
       isClearable
       isSearchable
-      components={{ Option: CustomOption }} // Use custom option for tree-like view
+      components={{ Option: CustomOption }} 
+     
     />
   );
 };
