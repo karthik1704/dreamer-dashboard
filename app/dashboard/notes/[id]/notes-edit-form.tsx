@@ -5,11 +5,19 @@ import { EditNote } from "./actions";
 import { useParams } from "next/navigation";
 import { Batch } from "@/types/batches";
 import { CreateNote, CreateNoteCategory, Note, NoteCategory } from "@/types/notes";
-import CustomSelect from "@/components/category-select/custom-select";
 import { transformCategories } from "@/lib/transform-data";
 import { Controller, useForm } from "react-hook-form";
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { getCategoriesByBatchId } from "@/app/services/notes-categories";
+import dynamic from "next/dynamic";
+
+
+const CustomSelect = dynamic(
+  () => import("@/components/category-select/custom-select"),
+  {
+    ssr: false, // Disable SSR for this component
+  },
+);
 
 type Props = {
   batches: Batch[];

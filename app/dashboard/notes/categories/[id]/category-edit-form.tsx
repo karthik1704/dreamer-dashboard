@@ -10,7 +10,6 @@ import { Batch } from "@/types/batches";
 import { Controller, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { getCategoriesByBatchId } from "@/app/services/notes-categories";
-import { set } from "zod";
 
 const CustomSelect = dynamic(
   () => import("@/components/category-select/custom-select"),
