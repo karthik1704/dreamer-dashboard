@@ -21,6 +21,7 @@ const flattenCategories = (categories: any[], depth: number = 0, parentValue: st
 
 
 const CustomSelect = ({ categories, defaultValue, field }: { categories: any[], defaultValue?: number, field: any }) => {
+  console.log(categories)
   const flattenedCategories = flattenCategories(categories);
   console.log(flattenedCategories)
   // Find the default category value from the flattened categories

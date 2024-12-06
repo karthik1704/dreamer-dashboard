@@ -6,7 +6,7 @@ import { transformCategories } from "@/lib/transform-data";
 import dynamic from "next/dynamic";
 import { Batch } from "@/types/batches";
 import Select from "@/components/select";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { use, useEffect, useState } from "react";
 import { getCategoriesByBatchId } from "@/app/services/notes-categories";
 
@@ -25,13 +25,15 @@ const CategoryAddForm = ({ batches }: Props) => {
   const [categories, setCategories] = useState<any[]>([]);
   const { register, handleSubmit, watch, control } =
     useForm<CreateNoteCategory>();
-  const watchBatchId = watch("batch_id");
+  const watchBatchId = useWatch({ name: "batch_id", control });
 
   useEffect(() => {
     const fetchCategories = async () => {
+      console.log(watchBatchId);
       if (watchBatchId) {
         const categories: NoteCategory[] =
           await getCategoriesByBatchId(watchBatchId);
+        console.log("category",categories);
         const transformedCategories = transformCategories(categories);
         setCategories(transformedCategories);
       }

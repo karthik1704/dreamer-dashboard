@@ -6,6 +6,7 @@ type Props = {
 };
 
 const CategoryTable = ({ categories }: Props) => {
+  console.log(categories);
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -17,6 +18,10 @@ const CategoryTable = ({ categories }: Props) => {
               </th>
               <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
                Parent
+              </th>
+             
+              <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+               Batch Name
               </th>
              
 
@@ -37,6 +42,11 @@ const CategoryTable = ({ categories }: Props) => {
                 <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
                     {category?.parent?.category_name ?? "-"}
+                  </h5>
+                </td>
+                <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                  <h5 className="font-medium text-black dark:text-white">
+                    {category?.batch?.batch_name ?? "-"}
                   </h5>
                 </td>
 

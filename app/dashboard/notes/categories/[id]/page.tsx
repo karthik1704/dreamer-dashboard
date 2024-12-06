@@ -21,7 +21,7 @@ export default async function EditCategoryPage({ params }: Props) {
 
   return (
     <div>
-      <Breadcrumb pageName="Category Edit Form" />
+      <Breadcrumb pageName="Note Category Edit Form" />
 
       <CategoryEditForm  category={category} batches={batches} />
     </div>

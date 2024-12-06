@@ -15,7 +15,7 @@ export default async function NewBatchPage() {
 
   return (
     <div>
-      <Breadcrumb pageName="Note Add Form" />
+      <Breadcrumb pageName="Note Category Add Form" />
 
       <CategoryAddForm  batches={batches} />
     </div>
