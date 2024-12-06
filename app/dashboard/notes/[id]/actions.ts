@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const EditNote = async (id:string,formData: any) => {
-  const data = Object.fromEntries(formData.entries());
+  const data = formData
 
   const access = (await cookies()).get("access");
   if (!access) {
