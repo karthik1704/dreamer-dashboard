@@ -17,6 +17,7 @@ export type NoteCategory = {
     category_name: string;
     parent_id: number | null;
     batch_id: number ;
+    image: string | File;
     parent: NoteCategory;
     children: NoteCategory[];
 };

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BatchesEditForm from "./batches-edit-form";
+import VideoEditForm from "./video-edit-form";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import {  getVideo } from "./services";
 import { getBatches } from "../../batches/services";
@@ -23,7 +23,7 @@ export default async function EditBatchesPage({params}: Props) {
     <div>
       <Breadcrumb pageName="Video Edit Form" />
 
-      <BatchesEditForm video={video} batches = {batches} />
+      <VideoEditForm video={video} batches = {batches} />
     </div>
   );
 }

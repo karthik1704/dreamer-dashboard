@@ -4,15 +4,15 @@ import { SERVER_API_URL } from "@/app/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const createVideo = async (formData: any) => {
-  const data = formData
-
+export const createCategory = async (formData: any) => {
+  const data = formData;
+  console.log(data);
   const access = (await cookies()).get("access");
   if (!access) {
     redirect("/signin");
   }
 
-  const response = await fetch(`${SERVER_API_URL}/videos/`, {
+  const response = await fetch(`${SERVER_API_URL}/videos/categories/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,5 @@ export const createVideo = async (formData: any) => {
     console.error(resjson.detail[0].input);
   }
 
-  if (response.status === 201) {
-    redirect("/dashboard/videos");
-  }
-};
+  response.status === 201 && redirect("/dashboard/videos/categories");
+ };

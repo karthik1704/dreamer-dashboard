@@ -4,16 +4,16 @@ import { SERVER_API_URL } from "@/app/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const createVideo = async (formData: any) => {
-  const data = formData
+export const updateCategory = async (id:string,formData: any) => {
+  const data = formData;
 
   const access = (await cookies()).get("access");
   if (!access) {
     redirect("/signin");
   }
 
-  const response = await fetch(`${SERVER_API_URL}/videos/`, {
-    method: "POST",
+  const response = await fetch(`${SERVER_API_URL}/videos/categories/${id}/`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${access.value}`,
@@ -24,7 +24,7 @@ export const createVideo = async (formData: any) => {
   if (response.status === 401) {
     redirect("/signin");
   }
-  if (response.status !== 201) {
+  if (response.status !== 204) {
     console.error("Error creating bathes");
     const resjson = await response.json();
     console.error(resjson);
@@ -32,7 +32,5 @@ export const createVideo = async (formData: any) => {
     console.error(resjson.detail[0].input);
   }
 
-  if (response.status === 201) {
-    redirect("/dashboard/videos");
-  }
+  response.status === 204 && redirect("/dashboard/videos/categories");
 };

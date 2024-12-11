@@ -1,28 +1,48 @@
 "use client";
 
-import Select from "@/components/select";
-import { createVideo } from "./actions";
-import { Batch } from "@/types/batches";
-import { getCategoriesByBatchId } from "@/app/services/video-categories";
+import { updateCategory } from "./actions";
+import { NoteCategory } from "@/types/notes";
 import { transformCategories } from "@/lib/transform-data";
-import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { useParams } from "next/navigation";
+import Select from "@/components/select";
+import { Batch } from "@/types/batches";
 import { Controller, useForm } from "react-hook-form";
-import { VideoCreate } from "@/types/videos";
-import CustomSelect from "@/components/category-select/custom-select";
+import { useEffect, useState } from "react";
+import { getCategoriesByBatchId } from "@/app/services/video-categories";
+import { convertToBase64 } from "@/lib/utils";
+
+const CustomSelect = dynamic(
+  () => import("@/components/category-select/custom-select"),
+  {
+    ssr: false, // Disable SSR for this component
+  },
+);
 
 type Props = {
+  category: NoteCategory;
   batches: Batch[];
 };
 
-const VideoAddForm = ({ batches }: Props) => {
-  const { register, control, watch, handleSubmit } = useForm<VideoCreate>();
-  const watchBatchId = watch("batch_id");
+const CategoryEditForm = ({ category, batches }: Props) => {
   const [categories, setCategories] = useState<any[]>([]);
+  const { register, handleSubmit, watch, control } = useForm({
+    defaultValues: {
+      batch_id: category.batch_id,
+      parent_id: category.parent_id,
+      category_name: category.category_name,
+      image: null,
+    },
+  });
+  const { id } = useParams<{ id: string }>();
+  const updateCategoryWithId = updateCategory.bind(null, id);
+  const watchBatchId = watch("batch_id");
 
   useEffect(() => {
     const fetchCategories = async () => {
       if (watchBatchId) {
-        const categories = await getCategoriesByBatchId(watchBatchId);
+        const categories: NoteCategory[] =
+          await getCategoriesByBatchId(watchBatchId);
         const transformedCategories = transformCategories(categories);
         setCategories(transformedCategories);
       }
@@ -30,9 +50,16 @@ const VideoAddForm = ({ batches }: Props) => {
     fetchCategories();
   }, [watchBatchId]);
 
-  const handleOnSubmit = async (data: VideoCreate) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
-    const response = await createVideo(data);
+    const image = data.image;
+    const base64Image = image ? await convertToBase64(image[0]) : null;
+
+    const categoryData = {
+      ...data,
+      image: base64Image,
+    };
+    const res = await updateCategoryWithId(categoryData);
   };
 
   return (
@@ -40,18 +67,21 @@ const VideoAddForm = ({ batches }: Props) => {
       <div className="flex flex-col gap-9">
         {/* <!-- Contact Form --> */}
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          {/*  <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-            <h3 className="font-medium text-black dark:text-white">
+          <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+            {/* <h3 className="font-medium text-black dark:text-white">
               Courses Add Form
-            </h3> 
-          </div> */}
-          <form onSubmit={handleSubmit(handleOnSubmit)}>
+            </h3> */}
+          </div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            encType="multipart/form-data"
+          >
             <div className="p-6.5">
               <div className="mb-4.5 flex flex-col gap-6">
                 <Select
                   name="batch_id"
-                  label="Batch"
                   register={register}
+                  label="Batch"
                   required
                 >
                   {batches.map((batch) => (
@@ -60,14 +90,13 @@ const VideoAddForm = ({ batches }: Props) => {
                     </option>
                   ))}
                 </Select>
-
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Category <span className="text-meta-1">*</span>
+                    Parent Name <span className="text-meta-1">*</span>
                   </label>
 
                   <Controller
-                    name="category_id"
+                    name="parent_id"
                     control={control}
                     render={({ field, fieldState }) => (
                       <>
@@ -77,54 +106,30 @@ const VideoAddForm = ({ batches }: Props) => {
                     )}
                   />
                 </div>
-
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Video Name <span className="text-meta-1">*</span>
+                    Category Name <span className="text-meta-1">*</span>
                   </label>
                   <input
-                    {...register("video_title")}
+                    {...register("category_name", { required: true })}
                     type="text"
                     required
-                    placeholder="Enter your video name"
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-
-                <div className="w-full">
-                  <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Video Link
-                  </label>
-                  <input
-                    {...register("video_link")}
-                    type="text"
-                    required
-                    placeholder="Enter video link"
+                    placeholder="Enter your note name"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
 
-              <Select
-                name="video_type"
-                label="Video Type"
-                register={register}
-                required
-              >
-                <option value="VIDEO">Video</option>
-                <option value="SHORT">Short</option>
-              </Select>
-
-              <div className="mb-2 w-full">
+              <div className="mb-4.5 flex flex-col">
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                  Description
+                  Category Picture
                 </label>
-                <textarea
-                  rows={6}
-                  placeholder="Default textarea"
-                  {...register("video_description")}
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                ></textarea>
+                <input
+                  type="file"
+                  accept="image/*"
+                  {...register("image")}
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                />
               </div>
 
               <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
@@ -138,4 +143,4 @@ const VideoAddForm = ({ batches }: Props) => {
   );
 };
 
-export default VideoAddForm;
+export default CategoryEditForm;

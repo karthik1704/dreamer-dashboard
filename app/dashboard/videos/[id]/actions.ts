@@ -4,8 +4,8 @@ import { SERVER_API_URL } from "@/app/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const EditVideo = async (id:string,formData: FormData) => {
-  const data = Object.fromEntries(formData.entries());
+export const EditVideo = async (id:string,formData: any) => {
+  const data = formData;
 
   const access = (await cookies()).get("access");
   if (!access) {
