@@ -10,6 +10,7 @@ import { Batch } from "@/types/batches";
 import { Controller, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { getCategoriesByBatchId } from "@/app/services/notes-categories";
+import { convertToBase64 } from "@/lib/utils";
 
 const CustomSelect = dynamic(
   () => import("@/components/category-select/custom-select"),
@@ -30,6 +31,7 @@ const CategoryEditForm = ({ category, batches }: Props) => {
       batch_id: category.batch_id,
       parent_id: category.parent_id,
       category_name: category.category_name,
+      image: null,
     },
   });
   const { id } = useParams<{ id: string }>();
@@ -50,7 +52,15 @@ const CategoryEditForm = ({ category, batches }: Props) => {
 
   const onSubmit = async (data: any) => {
     console.log(data);
-    const res = await updateCategoryWithId(data);
+    console.log(data);
+    const image = data.image;
+    const base64Image = image ? await convertToBase64(image[0]) : null;
+
+    const categoryData = {
+      ...data,
+      image: base64Image,
+    };
+    const res = await updateCategoryWithId(categoryData);
   };
 
   return (
@@ -106,6 +116,17 @@ const CategoryEditForm = ({ category, batches }: Props) => {
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
+              </div>
+              <div className="mb-4.5 flex flex-col">
+                <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                  Category Picture
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  {...register("image")}
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                />
               </div>
 
               {/* 

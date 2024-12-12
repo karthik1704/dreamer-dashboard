@@ -31,7 +31,7 @@ export const getCategoriesByBatchId = async (id:number|string) => {
     }
 
     const categories = await res.json();
-
+    console.log(categories)
     return categories;
 
 

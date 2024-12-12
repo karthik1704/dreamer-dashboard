@@ -7,8 +7,9 @@ import dynamic from "next/dynamic";
 import { Batch } from "@/types/batches";
 import Select from "@/components/select";
 import { Controller, useForm, useWatch } from "react-hook-form";
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { getCategoriesByBatchId } from "@/app/services/notes-categories";
+import { convertToBase64 } from "@/lib/utils";
 
 const CustomSelect = dynamic(
   () => import("@/components/category-select/custom-select"),
@@ -33,7 +34,7 @@ const CategoryAddForm = ({ batches }: Props) => {
       if (watchBatchId) {
         const categories: NoteCategory[] =
           await getCategoriesByBatchId(watchBatchId);
-        console.log("category",categories);
+        console.log("category", categories);
         const transformedCategories = transformCategories(categories);
         setCategories(transformedCategories);
       }
@@ -43,7 +44,14 @@ const CategoryAddForm = ({ batches }: Props) => {
 
   const handleOnSubmit = async (data: CreateNoteCategory) => {
     console.log(data);
-    const response = await createCategory(data);
+    const image = data.image;
+    const base64Image = image ? await convertToBase64(image[0]) : null;
+
+    const categoryData = {
+      ...data,
+      image: base64Image,
+    };
+    const response = await createCategory(categoryData);
   };
 
   return (
@@ -100,7 +108,17 @@ const CategoryAddForm = ({ batches }: Props) => {
                   />
                 </div>
               </div>
-
+              <div className="mb-4.5 flex flex-col">
+                <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                  Category Picture
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  {...register("image")}
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                />
+              </div>
               {/* 
               <div className="mb-2 w-full">
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
