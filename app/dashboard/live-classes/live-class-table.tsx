@@ -1,8 +1,8 @@
-import { Note } from "@/types/notes";
+import { LiveClassType } from "@/types/live-classes";
 import Link from "next/link";
 
 type Props = {
-  notes: Note[];
+  lives: LiveClassType[];
 };
 
 const LiveClassTable = ({ lives }: Props) => {
@@ -13,7 +13,10 @@ const LiveClassTable = ({ lives }: Props) => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-               
+               Class Name
+              </th>
+              <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+               Batch
               </th>
              
 
@@ -24,11 +27,16 @@ const LiveClassTable = ({ lives }: Props) => {
           </thead>
 
           <tbody>
-            {lives.map((live, key) => (
-              <tr key={note.id}>
+            {lives.map((live) => (
+              <tr key={live.id}>
                 <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {note.note}
+                    {live.class_name}
+                  </h5>
+                </td>
+                <td className="border-b border-[#eee] px-5 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                  <h5 className="font-medium text-black dark:text-white">
+                    {live.batch.batch_name}
                   </h5>
                 </td>
 
@@ -37,7 +45,7 @@ const LiveClassTable = ({ lives }: Props) => {
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <Link
-                      href={`notes/${note.id}`}
+                      href={`live-classes/${live.id}`}
                       className="hover:text-primary"
                     >
                       <svg

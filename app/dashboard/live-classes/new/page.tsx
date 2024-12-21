@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import NoteAddForm from "./notes-add-form";
+import LiveClassAddForm from "./lives-add-form";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { getBatches } from "../../batches/services";
 
@@ -14,9 +14,9 @@ export default async function NewBatchPage() {
 
   return (
     <div>
-      <Breadcrumb pageName="Note Add Form" />
+      <Breadcrumb pageName="Lives Add Form" />
 
-      <NoteAddForm batches = {batches}/>
+      <LiveClassAddForm batches = {batches}/>
     </div>
   );
 }

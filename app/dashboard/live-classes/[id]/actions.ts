@@ -4,7 +4,7 @@ import { SERVER_API_URL } from "@/app/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const EditNote = async (id:string,formData: FormData) => {
+export const editLiveClass = async (id:string,formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
 
   const access = (await cookies()).get("access");
@@ -12,7 +12,7 @@ export const EditNote = async (id:string,formData: FormData) => {
     redirect("/signin");
   }
 
-  const response = await fetch(`${SERVER_API_URL}/notes/${id}/`, {
+  const response = await fetch(`${SERVER_API_URL}/live-classes/${id}/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -32,5 +32,7 @@ export const EditNote = async (id:string,formData: FormData) => {
     console.error(resjson.detail[0].input);
   }
 
-  response.status === 204 && redirect("/dashboard/notes");
+  if (response.status === 204) {
+    redirect("/dashboard/live-classes");
+  }
 };

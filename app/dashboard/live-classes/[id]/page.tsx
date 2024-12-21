@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import NoteEditForm from "./notes-edit-form";
+import LiveEditForm from "./live-edit-form";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { getNote } from "./services";
 import { getBatches } from "../../batches/services";
+import { getLiveClass } from "@/services/live-classes";
 
 export const metadata: Metadata = {
   title: "Edit Batch | Dreamer Academy",
@@ -15,14 +15,14 @@ interface Props {
 
 export default async function EditBatchesPage({ params }: Props) {
   const { id } = await params;
-  const note = await getNote(id);
+  const note = await getLiveClass(id);
   const batches = await getBatches();
 
   return (
     <div>
-      <Breadcrumb pageName="Batch Edit Form" />
+      <Breadcrumb pageName="Live Class Edit Form" />
 
-      <NoteEditForm batches={batches} note={note} />
+      <LiveEditForm batches={batches} liveClass={note} />
     </div>
   );
 }

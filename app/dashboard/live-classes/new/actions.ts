@@ -12,7 +12,7 @@ export const createNote = async (formData: FormData) => {
     redirect("/signin");
   }
 
-  const response = await fetch(`${SERVER_API_URL}/notes/`, {
+  const response = await fetch(`${SERVER_API_URL}/live-classes/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,5 +32,7 @@ export const createNote = async (formData: FormData) => {
     console.error(resjson.detail[0].input);
   }
 
-  response.status === 201 && redirect("/dashboard/notes");
+  if (response.status === 201) {
+    redirect("/dashboard/live-classes");
+  }
 };

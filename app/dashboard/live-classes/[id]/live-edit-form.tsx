@@ -1,14 +1,19 @@
 "use client";
 
 import Select from "@/components/select";
-import { createNote } from "./actions";
+import { editLiveClass } from "./actions";
+import { useParams } from "next/navigation";
 import { Batch } from "@/types/batches";
+import { LiveClassType } from "@/types/live-classes";
 
 type Props = {
   batches: Batch[];
+  liveClass: LiveClassType;
 };
 
-const NoteAddForm = ({ batches }: Props) => {
+const NoteEditForm = ({ batches, liveClass }: Props) => {
+  const { id } = useParams();
+  const editLiveClassWithId = editLiveClass.bind(null, id as string);
   return (
     <div className="sm:grid-cols-2">
       <div className="flex flex-col gap-9">
@@ -19,10 +24,16 @@ const NoteAddForm = ({ batches }: Props) => {
               Courses Add Form
             </h3> */}
           </div>
-          <form action={createNote}>
+
+          <form action={editLiveClassWithId}>
             <div className="p-6.5">
               <div className="mb-4.5 flex flex-col gap-6">
-                <Select name="batch_id" label="Batch" required>
+                <Select
+                  name="batch_id"
+                  label="Batch"
+                  defaultValue={liveClass.batch_id}
+                  required
+                >
                   {batches.map((batch) => (
                     <option key={batch.id} value={batch.id}>
                       {batch.batch_name}
@@ -31,43 +42,58 @@ const NoteAddForm = ({ batches }: Props) => {
                 </Select>
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Note <span className="text-meta-1">*</span>
+                    Class Name <span className="text-meta-1">*</span>
                   </label>
                   <input
-                    name="note"
+                    name="class_name"
                     type="text"
                     required
-                    placeholder="Enter your note name"
+                    defaultValue={liveClass.class_name}
+                    placeholder="Enter your class name"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
-
                 <div className="w-full">
                   <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Note Link
+                    Class Link
                   </label>
                   <input
-                    name="note_link"
+                    name="class_link"
                     type="text"
                     required
+                    defaultValue={liveClass.class_link}
                     placeholder="Enter note link"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
-
-              <div className="mb-2 w-full">
+              <div className="w-full">
                 <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                  Description
+                  Start Time
                 </label>
-                <textarea
-                  rows={6}
-                  placeholder="Default textarea"
-                  name="note_description"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                ></textarea>
+                <input
+                  name="start_time"
+                  type="datetime-local"
+                  required
+                  defaultValue={liveClass.start_time}
+                  placeholder="Enter start time"
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                />
               </div>
 
+              <div className="w-full">
+                <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                  End Time
+                </label>
+                <input
+                  name="end_time"
+                  type="datetime-local"
+                  defaultValue={liveClass.end_time}
+                  required
+                  placeholder="Enter start time"
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                />
+              </div>
               <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
                 Submit
               </button>
@@ -79,4 +105,4 @@ const NoteAddForm = ({ batches }: Props) => {
   );
 };
 
-export default NoteAddForm;
+export default NoteEditForm;

@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Link from "next/link";
-import BatchesTable from "./live-class-table";
-import { getNotes } from "./services";
+import LiveClassTable from "./live-class-table";
+import { getLiveClasses } from "@/services/live-classes";
 
 export const metadata: Metadata = {
   title: "Notes | Seyon Academy",
@@ -10,22 +10,22 @@ export const metadata: Metadata = {
 };
 
 export default async function BatchesPage() {
-    const notes = await getNotes();
+    const notes = await getLiveClasses();
     
 
   return (
     <div className="min-h-svh">
-      <Breadcrumb pageName="Notes" />
+      <Breadcrumb pageName="LIve Classes" />
       <div className="flex justify-end">
         <Link
-          href="notes/new"
+          href="live-classes/new"
           className="mb-5 inline-flex items-center justify-center rounded-md border border-black px-10 py-4 text-center font-medium text-black hover:bg-opacity-90 lg:px-8 xl:px-10"
         >
-          New Note
+          New Live Class
         </Link>
       </div>
       <div className="flex flex-col gap-10">
-        <BatchesTable notes={notes}/>
+        <LiveClassTable lives={notes}/>
       </div>
     </div>
   );

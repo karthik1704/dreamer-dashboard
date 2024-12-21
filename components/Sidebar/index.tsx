@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +8,6 @@ import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { APP_LOGO } from "@/app/constants";
-import { late } from "zod";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -44,6 +43,11 @@ const menuGroups = [
         icon: null,
         label: "Vidoes",
         route: "/dashboard/videos",
+      },
+      {
+        icon: null,
+        label: "Live classes",
+        route: "/dashboard/live-classes",
       },
 
       {
@@ -363,6 +367,7 @@ const menuGroups = [
 ];
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pathname = usePathname();
   const [pageName, setPageName] = useLocalStorage("selectedMenu", "dashboard");
 
